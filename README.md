@@ -1,10 +1,11 @@
-# Ant Design Pro
+# 极客时间ServerLess专栏，"待办任务"前端项目
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
+这个项目用 [Ant Design Pro](https://pro.ant.design)，[Umi.js](https://umijs.org/)，[React](https://zh-hans.reactjs.org/) 开发。
+这个仓库是前端项目代码，接口采用Mock数据本地拦截模拟，Mock代码在 `mock` 目录里。
 
-## Environment Prepare
+## 环境准备
 
-Install `node_modules`:
+安装 Node.js依赖包 `node_modules`:
 
 ```bash
 npm install
@@ -16,42 +17,36 @@ or
 yarn
 ```
 
-## Provided Scripts
+## 提供脚本
 
-Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
+我们将提供你几个常用脚本，具体脚本放在 `package.json`。
 
-Scripts provided in `package.json`. It's safe to modify or add additional script:
-
-### Start project
+### 启动项目
 
 ```bash
 npm start
 ```
-
-### Build project
+启动后，你可以通过浏览器地址栏：<http://127.0.0.1:8000>访问你的本地代码；
+### 构建项目
 
 ```bash
 npm run build
 ```
 
-### Check code style
+### 检查代码规范
 
 ```bash
 npm run lint
 ```
 
-You can also use script to auto fix some lint error:
+你也可以检查代码规范并自动修复代码规范错误:
 
 ```bash
 npm run lint:fix
 ```
 
-### Test code
+### 测试代码
 
 ```bash
 npm test
 ```
-
-## More
-
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).

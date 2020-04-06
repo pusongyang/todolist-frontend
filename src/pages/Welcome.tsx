@@ -15,7 +15,7 @@ export default (): React.ReactNode => (
   <PageHeaderWrapper>
     <Card>
       <Alert
-        message="umi ui 现已发布，点击右下角 umi 图标即可使用"
+        message="恭喜你成功部署了极客时间Serverless的Web应用"
         type="success"
         showIcon
         banner
@@ -26,10 +26,10 @@ export default (): React.ReactNode => (
       />
       <Typography.Text strong>
         <a target="_blank" rel="noopener noreferrer" href="https://pro.ant.design/docs/block">
-          基于 block 开发，快速构建标准页面
+          这是我们第一个的应用例子，你可以用常用的开发工具IDE，打开index.js查看里面的内容
         </a>
       </Typography.Text>
-      <CodePreview> npm run ui</CodePreview>
+      <CodePreview> index.js</CodePreview>
       <Typography.Text
         strong
         style={{
@@ -41,22 +41,10 @@ export default (): React.ReactNode => (
           rel="noopener noreferrer"
           href="https://pro.ant.design/docs/available-script#npm-run-fetchblocks"
         >
-          获取全部区块
+          如果你想部署到阿里云的函数服务，可以使用index-faas.js
         </a>
       </Typography.Text>
-      <CodePreview> npm run fetch:blocks</CodePreview>
+      <CodePreview> index-faas.js</CodePreview>
     </Card>
-    <p
-      style={{
-        textAlign: 'center',
-        marginTop: 24,
-      }}
-    >
-      Want to add more pages? Please refer to{' '}
-      <a href="https://pro.ant.design/docs/block-cn" target="_blank" rel="noopener noreferrer">
-        use block
-      </a>
-      。
-    </p>
   </PageHeaderWrapper>
 );
