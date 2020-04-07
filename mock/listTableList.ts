@@ -87,67 +87,69 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
   if (!realUrl || Object.prototype.toString.call(realUrl) !== '[object String]') {
     realUrl = req.url;
   }
-
   const body = (b && b.body) || req.body;
-  const { method, name, desc, key, status } = body;
+  const { name, desc } = body;
 
-  switch (method) {
-    /* eslint no-case-declarations:0 */
-    case 'delete':
-      tableListDataSource = tableListDataSource.filter(item => key.indexOf(item.key) === -1);
-      break;
-    case 'post':
-      (() => {
-        const i = Math.ceil(Math.random() * 10000);
-        const newRule = {
-          key: tableListDataSource.length,
-          href: 'https://ant.design',
-          avatar: [
-            'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png',
-            'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png',
-          ][i % 2],
-          name,
-          owner: '曲丽丽',
-          desc,
-          callNo: Math.floor(Math.random() * 1000),
-          status: Math.floor(Math.random() * 10) % 2,
-          updatedAt: new Date(),
-          createdAt: new Date(),
-          progress: Math.ceil(Math.random() * 100),
-        };
-        tableListDataSource.unshift(newRule);
-        return res.json(newRule);
-      })();
-      return;
-
-    case 'update':
-      (() => {
-        let newRule = {};
-        tableListDataSource = tableListDataSource.map(item => {
-          if (item.key === key) {
-            newRule = { ...item, desc, name, status };
-            return { ...item, desc, name, status };
-          }
-          return item;
-        });
-        return res.json(newRule);
-      })();
-      return;
-    default:
-      break;
+  const i = Math.ceil(Math.random() * 10000);
+  const newRule = {
+    key: tableListDataSource.length,
+    href: 'https://ant.design',
+    avatar: [
+      'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png',
+      'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png',
+    ][i % 2],
+    name,
+    owner: '曲丽丽',
+    desc,
+    callNo: Math.floor(Math.random() * 1000),
+    status: Math.floor(Math.random() * 10) % 2,
+    updatedAt: new Date(),
+    createdAt: new Date(),
+    progress: Math.ceil(Math.random() * 100),
+  };
+  tableListDataSource.unshift(newRule);
+  return res.json(newRule);
+}
+function putRule(req: Request, res: Response, u: string, b: Request) {
+  let realUrl = u;
+  if (!realUrl || Object.prototype.toString.call(realUrl) !== '[object String]') {
+    realUrl = req.url;
   }
 
+  const body = (b && b.body) || req.body;
+  const { name, desc, key, status } = body;
+
+  let newRule = {};
+  tableListDataSource = tableListDataSource.map(item => {
+    if (item.key === key) {
+      newRule = { ...item, desc, name, status };
+      return { ...item, desc, name, status };
+    }
+    return item;
+  });
+  return res.json(newRule);
+}
+function deleteRule(req: Request, res: Response, u: string, b: Request) {
+  let realUrl = u;
+  if (!realUrl || Object.prototype.toString.call(realUrl) !== '[object String]') {
+    realUrl = req.url;
+  }
+  const body = (b && b.body) || req.body;
+  const { key } = body;
+
+  tableListDataSource = tableListDataSource.filter(item => key.indexOf(item.key) === -1);
   const result = {
     list: tableListDataSource,
     pagination: {
       total: tableListDataSource.length,
     },
   };
-
   res.json(result);
 }
 
 export default {
   'GET /api/rule': getRule,
   'POST /api/rule': postRule,
+  'PUT /api/rule': putRule,
+  'DELETE /api/rule': deleteRule,
 };

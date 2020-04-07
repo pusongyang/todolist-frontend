@@ -9,7 +9,7 @@ export async function queryRule(params?: TableListParams) {
 
 export async function removeRule(params: { key: number[] }) {
   return request('/api/rule', {
-    method: 'POST',
+    method: 'DELETE',
     data: {
       ...params,
       method: 'delete',
@@ -29,7 +29,7 @@ export async function addRule(params: TableListItem) {
 
 export async function updateRule(params: TableListParams) {
   return request('/api/rule', {
-    method: 'POST',
+    method: 'PUT',
     data: {
       ...params,
       method: 'update',
