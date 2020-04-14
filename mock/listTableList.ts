@@ -52,7 +52,7 @@ const checkJWT = (req: Request, res: Response) => {
     });
   }
   return true;
-}
+};
 
 function getRule(req: Request, res: Response, u: string) {
   let realUrl = u;

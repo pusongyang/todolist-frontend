@@ -1,14 +1,15 @@
 import request from '@/utils/request';
 import { TableListParams, TableListItem } from './data.d';
 
+const apiURL = '/api/rule';
 export async function queryRule(params?: TableListParams) {
-  return request('/api/rule', {
+  return request(apiURL, {
     params,
   });
 }
 
 export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
+  return request(apiURL, {
     method: 'DELETE',
     data: {
       ...params,
@@ -18,7 +19,7 @@ export async function removeRule(params: { key: number[] }) {
 }
 
 export async function addRule(params: TableListItem) {
-  return request('/api/rule', {
+  return request(apiURL, {
     method: 'POST',
     data: {
       ...params,
@@ -28,7 +29,7 @@ export async function addRule(params: TableListItem) {
 }
 
 export async function updateRule(params: TableListParams) {
-  return request('http://faas.jike-serverless.online/api/rule', {
+  return request(apiURL, {
     method: 'PUT',
     data: {
       ...params,

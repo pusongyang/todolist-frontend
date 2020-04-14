@@ -12,6 +12,7 @@ const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, REACT_APP_ENV, GA_KEY
 
 export default defineConfig({
   hash: true,
+  publicPath: "http://s1.jike-serverless.online/dist/",
   antd: {},
   analytics: GA_KEY ? { ga: GA_KEY } : false,
   dva: {
