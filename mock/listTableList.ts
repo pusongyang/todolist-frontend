@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { parse } from 'url';
 import { TableListItem, TableListParams } from '@/pages/ListTableList/data';
 
+const jwt = require('jsonwebtoken');
 // mock tableListDataSource
 const genList = (current: number, pageSize: number) => {
   const tableListDataSource: TableListItem[] = [];
@@ -32,12 +33,33 @@ const genList = (current: number, pageSize: number) => {
 };
 
 let tableListDataSource = genList(1, 100);
+const getJWT = (cookieString: string | undefined) => {
+  if (cookieString === undefined) return '';
+  const cookieArray = cookieString.split('; ');
+  const findJWT = (element: String) => element.indexOf('jwtToken=') > -1;
+  const idx = cookieArray.findIndex(findJWT);
+  return cookieArray[idx].replace('jwtToken=', '');
+};
+const checkJWT = (req: Request, res: Response) => {
+  const jwtToken = getJWT(req.headers.cookie);
+  try {
+    jwt.verify(jwtToken, 'secret');
+  } catch (err) {
+    res.status(403);
+    return res.json({
+      success: false,
+      message: 'JWT token auth failed',
+    });
+  }
+  return true;
+}
 
 function getRule(req: Request, res: Response, u: string) {
   let realUrl = u;
   if (!realUrl || Object.prototype.toString.call(realUrl) !== '[object String]') {
     realUrl = req.url;
   }
+  checkJWT(req, res);
   const { current = 1, pageSize = 10 } = req.query;
   const params = (parse(realUrl, true).query as unknown) as TableListParams;
 
@@ -87,6 +109,7 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
   if (!realUrl || Object.prototype.toString.call(realUrl) !== '[object String]') {
     realUrl = req.url;
   }
+  checkJWT(req, res);
   const body = (b && b.body) || req.body;
   const { name, desc } = body;
 
@@ -115,7 +138,7 @@ function putRule(req: Request, res: Response, u: string, b: Request) {
   if (!realUrl || Object.prototype.toString.call(realUrl) !== '[object String]') {
     realUrl = req.url;
   }
-
+  checkJWT(req, res);
   const body = (b && b.body) || req.body;
   const { name, desc, key, status } = body;
 
@@ -134,6 +157,7 @@ function deleteRule(req: Request, res: Response, u: string, b: Request) {
   if (!realUrl || Object.prototype.toString.call(realUrl) !== '[object String]') {
     realUrl = req.url;
   }
+  checkJWT(req, res);
   const body = (b && b.body) || req.body;
   const { key } = body;
 
